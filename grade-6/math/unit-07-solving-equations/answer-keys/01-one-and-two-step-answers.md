@@ -1,0 +1,58 @@
+# Answer Key: Worksheet 1 — One- and Two-Step Equations
+
+---
+
+### Part A: One-Step Equations
+
+**1.** y + 8 = 15 → y = 15 - 8 → **y = 7**
+
+**2.** y - 6 = 11 → y = 11 + 6 → **y = 17**
+
+**3.** 4y = 28 → y = 28/4 → **y = 7**
+
+**4.** y/5 = 3 → y = 3 × 5 → **y = 15**
+
+**5.** y - 12 = -3 → y = -3 + 12 → **y = 9**
+
+**6.** 7y = -42 → y = -42/7 → **y = -6**
+
+---
+
+### Part B: Two-Step Equations
+
+**7.** 2y + 5 = 19 → 2y = 14 → **y = 7**
+
+**8.** 3y - 4 = 14 → 3y = 18 → **y = 6**
+
+**9.** y/2 + 6 = 10 → y/2 = 4 → **y = 8**
+
+**10.** 5y - 3 = 22 → 5y = 25 → **y = 5**
+
+**11.** 4y + 7 = -9 → 4y = -16 → **y = -4**
+
+**12.** y/3 - 5 = 2 → y/3 = 7 → **y = 21**
+
+---
+
+### Part C: Two-Step with Negative Results
+
+**13.** 2y + 10 = 4 → 2y = -6 → **y = -3**
+
+**14.** 3y - 1 = -16 → 3y = -15 → **y = -5**
+
+**15.** 6y + 9 = -3 → 6y = -12 → **y = -2**
+
+**16.** y/4 + 3 = 1 → y/4 = -2 → **y = -8**
+
+---
+
+### Check Your Understanding
+
+**17.** Marcus is **incorrect**.
+- 3y + 6 = 21
+- 3y = 21 - 6 = 15
+- y = 15/3 = **5**
+- Marcus likely divided 21 by 3 first (getting 7) then subtracted... or added 6 to 21. The correct approach is to subtract 6 first, then divide by 3.
+
+**18.** Answers will vary. Example: 2y + 1 = 15
+- 2(7) + 1 = 14 + 1 = 15 ✓

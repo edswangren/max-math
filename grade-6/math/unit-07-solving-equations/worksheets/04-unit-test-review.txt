@@ -1,0 +1,187 @@
+================================================================================
+  WORKSHEET 4: UNIT 7 TEST REVIEW -- MIXED PRACTICE
+  Unit 7 -- Solving Equations | Grade 6 Math
+================================================================================
+
+Name: _________________________   Date: _____________
+
+TEKS Alignment: 6.9A, 6.9B, 6.10A, 6.10B
+
+INSTRUCTIONS:
+This worksheet covers ALL skills from Unit 7. Treat it like a practice test.
+SHOW ALL WORK. No calculators unless your teacher allows them on the test.
+
+
+--------------------------------------------------------------------------------
+SECTION 1: Quick Solve (Solve for y)
+--------------------------------------------------------------------------------
+
+1)  y + 14 = 23
+
+
+2)  6y = -30
+
+
+3)  y/3 = -4
+
+
+4)  y - 9 = -2
+
+
+--------------------------------------------------------------------------------
+SECTION 2: Two-Step Equations (Solve for y)
+--------------------------------------------------------------------------------
+
+5)  3y + 8 = 29
+
+
+
+6)  y/2 - 5 = 3
+
+
+
+7)  7y + 4 = -10
+
+
+
+8)  2y - 11 = 1
+
+
+
+--------------------------------------------------------------------------------
+SECTION 3: Multi-Step Equations (Solve for y)
+--------------------------------------------------------------------------------
+
+9)   4y + 2y - 3 = 21
+
+
+
+10)  3(y - 2) = 12
+
+
+
+11)  2(y + 5) + 3y = 35
+
+
+
+12)  5y - 2(y - 4) = 23
+
+
+
+--------------------------------------------------------------------------------
+SECTION 4: Variables on Both Sides (Solve for y)
+--------------------------------------------------------------------------------
+
+13)  5y + 3 = 2y + 18
+
+
+
+14)  8y - 7 = 3y + 13
+
+
+
+15)  y + 15 = 4y - 6
+
+
+
+16)  6y - 2 = 2y + 14
+
+
+
+--------------------------------------------------------------------------------
+SECTION 5: Solve for y in Terms of x
+--------------------------------------------------------------------------------
+
+17)  2y + 4 = 8x
+
+
+
+18)  3y - 6 = 9x + 3
+
+
+
+19)  5y + x = 3x + 10
+
+
+
+20)  y - 2x = 4x - 7
+
+
+
+--------------------------------------------------------------------------------
+SECTION 6: Solve for x in Terms of y
+--------------------------------------------------------------------------------
+
+21)  4x + y = 25
+
+
+
+22)  2x - 3y = 10
+
+
+
+--------------------------------------------------------------------------------
+SECTION 7: Word Problems
+--------------------------------------------------------------------------------
+
+23) Three times a number y, decreased by 7, equals twice the number y,
+    increased by 5. Write an equation and solve for y.
+
+
+
+
+24) The cost of a movie ticket is represented by (2y + 3) dollars.
+    If four tickets cost the same as (3y + 19) dollars, find the value of y.
+
+
+
+
+25) A triangle has sides of length y, (y + 4), and (2y - 3). The perimeter
+    equals 33. Write an equation and solve for y. Then find the length of
+    each side.
+
+
+
+
+--------------------------------------------------------------------------------
+SECTION 8: Error Analysis
+--------------------------------------------------------------------------------
+
+26) Find and correct the error:
+
+       Solve for y:  5y + 3 = 2y + 18
+
+       Step 1:  5y + 2y + 3 = 18       (added 2y to both sides)
+       Step 2:  7y + 3 = 18
+       Step 3:  7y = 15
+       Step 4:  y = 15/7
+
+    What went wrong? Show the correct solution.
+
+
+
+
+27) Find and correct the error:
+
+       Solve for y:  3(y + 4) = 21
+
+       Step 1:  3y + 4 = 21            (distributed the 3)
+       Step 2:  3y = 17
+       Step 3:  y = 17/3
+
+    What went wrong? Show the correct solution.
+
+
+
+
+--------------------------------------------------------------------------------
+BONUS
+--------------------------------------------------------------------------------
+
+Create your own equation that has variables on both sides AND requires
+distribution to solve. Write it, then solve it. Make the solution a
+whole number.
+
+
+
+
