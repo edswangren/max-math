@@ -13,17 +13,19 @@ export default function ProblemDisplay({ questionText, questionLatex, problemNum
     : null
 
   return (
-    <div className="bg-white rounded-lg border border-gray-200 p-6">
-      <p className="text-sm text-gray-400 mb-3">
-        Problem {problemNumber} of {totalProblems}
+    <div className="bg-void-light rounded-xl border border-void-lighter p-6">
+      <p className="text-sm text-smoke mb-3">
+        <span className="text-neon font-bold">{problemNumber}</span>
+        <span className="text-void-lighter"> / </span>
+        <span>{totalProblems}</span>
       </p>
       {html ? (
         <div
-          className="text-2xl"
+          className="text-2xl text-white"
           dangerouslySetInnerHTML={{ __html: html }}
         />
       ) : (
-        <p className="text-2xl font-mono">{questionText}</p>
+        <p className="text-2xl font-mono text-white">{questionText}</p>
       )}
     </div>
   )

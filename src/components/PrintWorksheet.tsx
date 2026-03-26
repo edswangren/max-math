@@ -23,23 +23,23 @@ export default function PrintWorksheet() {
   }, [teksCode, difficulty, count])
 
   if (!hasTemplates(teksCode)) {
-    return <p className="text-center py-12 text-gray-500">No problems available for {teksCode}.</p>
+    return <p className="text-center py-12 text-smoke">No problems available for {teksCode}.</p>
   }
 
   return (
     <div>
       <div className="no-print mb-4 flex gap-4 items-center">
-        <Link to={`/practice/${teksCode}`} className="text-indigo-600 text-sm hover:underline">&larr; Back to Practice</Link>
+        <Link to={`/practice/${teksCode}`} className="text-neon text-sm hover:underline">&larr; Back to Practice</Link>
         <button
           onClick={() => window.print()}
-          className="bg-indigo-600 text-white px-4 py-2 rounded text-sm hover:bg-indigo-700"
+          className="bg-neon text-void font-bold px-4 py-2 rounded-lg text-sm hover:bg-neon-dim transition-colors"
         >
           Print
         </button>
       </div>
 
-      {/* Worksheet */}
-      <div className="bg-white p-8 border rounded-lg print:border-none print:p-0">
+      {/* Worksheet — white bg for print */}
+      <div className="bg-white text-black p-8 rounded-xl print:rounded-none print:p-0">
         <div className="text-center mb-6">
           <h1 className="text-xl font-bold">TEKS {teksCode}: {standard?.title ?? ''}</h1>
           <p className="text-sm text-gray-500 capitalize">{difficulty} &middot; {count} problems</p>
@@ -55,7 +55,7 @@ export default function PrintWorksheet() {
               ? katex.renderToString(p.questionLatex, { throwOnError: false, displayMode: false })
               : null
             return (
-              <div key={p.num} className="border-b border-gray-100 pb-4">
+              <div key={p.num} className="border-b border-gray-200 pb-4">
                 <div className="flex gap-3">
                   <span className="font-bold text-gray-400 w-8 shrink-0">{p.num}.</span>
                   {html ? (
@@ -64,15 +64,15 @@ export default function PrintWorksheet() {
                     <span>{p.questionText}</span>
                   )}
                 </div>
-                <div className="h-16" /> {/* work space */}
+                <div className="h-16" />
               </div>
             )
           })}
         </div>
       </div>
 
-      {/* Answer Key — page break */}
-      <div className="mt-8 print:break-before-page bg-white p-8 border rounded-lg print:border-none print:p-0">
+      {/* Answer Key */}
+      <div className="mt-8 print:break-before-page bg-white text-black p-8 rounded-xl print:rounded-none print:p-0">
         <h2 className="text-lg font-bold mb-4 text-center">Answer Key</h2>
         <div className="grid grid-cols-2 gap-2 text-sm">
           {problems.map((p) => (

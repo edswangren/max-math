@@ -115,8 +115,8 @@ export default function PracticeSession() {
     return (
       <div className="text-center py-12">
         <h1 className="text-2xl font-bold mb-4">TEKS {teksCode}</h1>
-        <p className="text-gray-500 mb-6">Problems for this standard are coming soon.</p>
-        <Link to="/" className="text-indigo-600 hover:underline">Back to Home</Link>
+        <p className="text-smoke mb-6">Problems for this standard are coming soon. Patience, Max.</p>
+        <Link to="/" className="text-neon hover:underline">Back to Home</Link>
       </div>
     )
   }
@@ -124,43 +124,69 @@ export default function PracticeSession() {
   if (problems.length === 0) {
     return (
       <div className="text-center py-12">
-        <p className="text-gray-500">No problems available for this difficulty. Try another level.</p>
+        <p className="text-smoke">No problems at this difficulty. Try another level.</p>
         <DifficultySelector value={difficulty} onChange={handleDifficultyChange} />
       </div>
     )
   }
 
+  const perfectMessages = [
+    "FLAWLESS VICTORY. You are literally him.",
+    "10/10. The math didn't stand a chance.",
+    "Max woke up dangerous today.",
+    "Not a single miss. Are you cheating? (jk... unless?)",
+  ]
+  const goodMessages = [
+    "Solid run, Max. Respect.",
+    "Not bad at all. You're getting scary good.",
+    "W session. A couple slipped but overall fire.",
+  ]
+  const midMessages = [
+    "Decent. But we both know you can do better.",
+    "Mid performance tbh. Run it back?",
+    "The math got a few hits in. Time for revenge.",
+  ]
+  const roughMessages = [
+    "Bro... we need to talk about this one.",
+    "The math won this round. But it's best of 3, right?",
+    "Down bad. But every legend has an origin story.",
+    "That was rough. Let's pretend it didn't happen and try again.",
+  ]
+
   if (finished) {
+    const pick = (arr: string[]) => arr[Math.floor(Math.random() * arr.length)]
+    const msg = score === TOTAL_PROBLEMS ? pick(perfectMessages)
+      : score >= TOTAL_PROBLEMS * 0.8 ? pick(goodMessages)
+      : score >= TOTAL_PROBLEMS * 0.6 ? pick(midMessages)
+      : pick(roughMessages)
+
+    const scoreColor = score === TOTAL_PROBLEMS ? 'text-neon'
+      : score >= TOTAL_PROBLEMS * 0.8 ? 'text-neon'
+      : score >= TOTAL_PROBLEMS * 0.6 ? 'text-yellow-400'
+      : 'text-lava'
+
     return (
       <div className="text-center">
-        <h1 className="text-2xl font-bold mb-4">Session Complete</h1>
-        <p className="text-lg mb-2">TEKS {teksCode} — {difficulty}</p>
-        <div className="bg-white rounded-lg border p-8 mb-6">
-          <p className="text-5xl font-bold text-indigo-600 mb-2">
+        <h1 className="text-2xl font-black mb-4">Session Complete</h1>
+        <p className="text-sm text-smoke mb-2">TEKS {teksCode} &middot; {difficulty}</p>
+        <div className="bg-void-light rounded-xl border border-void-lighter p-8 mb-6">
+          <p className={`text-6xl font-black mb-3 ${scoreColor}`}>
             {score}/{TOTAL_PROBLEMS}
           </p>
-          <p className="text-gray-500">
-            {score === TOTAL_PROBLEMS
-              ? 'Perfect score!'
-              : score >= TOTAL_PROBLEMS * 0.8
-                ? 'Great job!'
-                : score >= TOTAL_PROBLEMS * 0.6
-                  ? 'Keep practicing!'
-                  : "Let's review this topic."}
-          </p>
+          <p className="text-smoke text-lg">{msg}</p>
         </div>
         <div className="flex gap-4 justify-center flex-wrap">
           <button
             onClick={handleRestart}
-            className="bg-indigo-600 text-white px-6 py-2 rounded-lg hover:bg-indigo-700"
+            className="bg-neon text-void font-bold px-6 py-2 rounded-xl hover:bg-neon-dim transition-colors"
           >
-            Practice Again
+            Run it back
           </button>
           <Link
             to="/"
-            className="border border-gray-300 px-6 py-2 rounded-lg hover:bg-gray-100"
+            className="border border-void-lighter text-smoke px-6 py-2 rounded-xl hover:border-white/30 hover:text-white transition-colors"
           >
-            Back to Home
+            Home
           </Link>
         </div>
       </div>
@@ -174,8 +200,8 @@ export default function PracticeSession() {
         <DifficultySelector value={difficulty} onChange={handleDifficultyChange} />
       </div>
 
-      <div className="flex justify-between items-center mb-2 text-sm text-gray-500">
-        <span>Score: {score}/{currentIndex + (feedback ? 1 : 0)}</span>
+      <div className="flex justify-between items-center mb-2 text-sm text-smoke">
+        <span>Score: <span className="text-neon font-bold">{score}</span>/{currentIndex + (feedback ? 1 : 0)}</span>
       </div>
 
       <ProblemDisplay

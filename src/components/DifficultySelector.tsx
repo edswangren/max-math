@@ -5,10 +5,10 @@ interface Props {
   onChange: (d: Difficulty) => void
 }
 
-const levels: { key: Difficulty; label: string; color: string }[] = [
-  { key: 'easy', label: 'Easy', color: 'bg-green-100 border-green-400 text-green-800' },
-  { key: 'medium', label: 'Medium', color: 'bg-yellow-100 border-yellow-400 text-yellow-800' },
-  { key: 'hard', label: 'Hard', color: 'bg-red-100 border-red-400 text-red-800' },
+const levels: { key: Difficulty; label: string; active: string }[] = [
+  { key: 'easy', label: 'Chill', active: 'bg-neon/20 border-neon text-neon ring-neon/30' },
+  { key: 'medium', label: 'Mid', active: 'bg-yellow-500/20 border-yellow-400 text-yellow-400 ring-yellow-400/30' },
+  { key: 'hard', label: 'Demon', active: 'bg-lava/20 border-lava text-lava ring-lava/30' },
 ]
 
 export default function DifficultySelector({ value, onChange }: Props) {
@@ -18,10 +18,10 @@ export default function DifficultySelector({ value, onChange }: Props) {
         <button
           key={l.key}
           onClick={() => onChange(l.key)}
-          className={`px-3 py-1 rounded-full border text-sm font-medium transition-all ${
+          className={`px-3 py-1 rounded-full border text-sm font-bold transition-all ${
             value === l.key
-              ? `${l.color} ring-2 ring-offset-1`
-              : 'bg-gray-50 border-gray-200 text-gray-500 hover:bg-gray-100'
+              ? `${l.active} ring-2 ring-offset-1 ring-offset-void`
+              : 'bg-void-lighter border-void-lighter text-smoke hover:text-white hover:border-white/30'
           }`}
         >
           {l.label}

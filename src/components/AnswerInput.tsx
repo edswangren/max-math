@@ -24,16 +24,16 @@ export default function AnswerInput({ onSubmit, disabled }: Props) {
         value={value}
         onChange={(e) => setValue(e.target.value)}
         disabled={disabled}
-        placeholder="Type your answer..."
+        placeholder="Drop your answer here..."
         autoFocus
-        className="border border-gray-300 rounded-lg px-4 py-2 text-lg flex-1 focus:outline-none focus:ring-2 focus:ring-indigo-400 disabled:bg-gray-100"
+        className="bg-void-lighter border border-void-lighter rounded-xl px-4 py-2 text-lg text-white flex-1 placeholder-smoke/50 focus:outline-none focus:ring-2 focus:ring-neon focus:border-neon disabled:opacity-40"
       />
       <button
         type="submit"
         disabled={disabled || !value.trim()}
-        className="bg-indigo-600 text-white px-6 py-2 rounded-lg text-lg hover:bg-indigo-700 disabled:opacity-40"
+        className="bg-neon text-void font-bold px-6 py-2 rounded-xl text-lg hover:bg-neon-dim disabled:opacity-30 transition-colors"
       >
-        Check
+        Send it
       </button>
     </form>
   )
