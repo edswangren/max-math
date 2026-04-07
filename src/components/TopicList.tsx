@@ -22,11 +22,8 @@ export default function TopicList() {
           const ready = hasTemplates(std.code)
           const accuracy = getAccuracy(std.code)
 
-          return (
-            <div
-              key={std.code}
-              className="border border-void-lighter rounded-xl p-4 bg-void-light flex items-center justify-between"
-            >
+          const inner = (
+            <>
               <div className="flex-1 min-w-0">
                 <div className="flex items-center gap-2">
                   <span className="font-mono font-bold text-sm text-neon">{std.code}</span>
@@ -45,16 +42,29 @@ export default function TopicList() {
                   </span>
                 )}
                 {ready ? (
-                  <Link
-                    to={`/practice/${std.code}`}
-                    className="bg-neon text-void font-bold px-3 py-1 rounded-lg text-sm hover:bg-neon-dim transition-colors"
-                  >
+                  <span className="bg-neon text-void font-bold px-3 py-1 rounded-lg text-sm">
                     Go
-                  </Link>
+                  </span>
                 ) : (
                   <span className="text-xs text-smoke/50 italic">Soon</span>
                 )}
               </div>
+            </>
+          )
+
+          const baseClass = "border border-void-lighter rounded-xl p-4 bg-void-light flex items-center justify-between transition-all duration-150"
+
+          return ready ? (
+            <Link
+              key={std.code}
+              to={`/practice/${std.code}`}
+              className={`${baseClass} cursor-pointer hover:border-neon/50 hover:shadow-[0_0_18px_rgba(57,255,20,0.25)] active:scale-[0.97] active:shadow-[0_0_30px_rgba(57,255,20,0.45)]`}
+            >
+              {inner}
+            </Link>
+          ) : (
+            <div key={std.code} className={`${baseClass} opacity-60`}>
+              {inner}
             </div>
           )
         })}
