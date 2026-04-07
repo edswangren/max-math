@@ -14,6 +14,7 @@ function makeOneStepEquation(difficulty: 'easy' | 'medium' | 'hard'): GeneratedP
   let questionText: string
   let questionLatex: string
   let correctAnswer: string
+  let checkWork: string
 
   if (op === '+') {
     const b = randIntExcluding(-10, 10, [0])
@@ -21,21 +22,24 @@ function makeOneStepEquation(difficulty: 'easy' | 'medium' | 'hard'): GeneratedP
     questionText = `Solve for y: y + ${b} = ${c}`
     questionLatex = `\\text{Solve for } y: \\quad y ${formatConstant(b, false)} = ${c}`
     correctAnswer = String(y)
+    checkWork = `Plug y = ${y} back in: ${y} ${b >= 0 ? '+' : '-'} ${Math.abs(b)} = ${c}`
   } else if (op === '-') {
     const b = randIntExcluding(1, 15, [0])
     const c = y - b
     questionText = `Solve for y: y - ${b} = ${c}`
     questionLatex = `\\text{Solve for } y: \\quad y - ${b} = ${c}`
     correctAnswer = String(y)
+    checkWork = `Plug y = ${y} back in: ${y} - ${b} = ${c}`
   } else {
     const a = randInt(2, difficulty === 'easy' ? 5 : difficulty === 'medium' ? 9 : 12)
     const c = a * y
     questionText = `Solve for y: ${a}y = ${c}`
     questionLatex = `\\text{Solve for } y: \\quad ${a}y = ${c}`
     correctAnswer = String(y)
+    checkWork = `Plug y = ${y} back in: ${a}(${y}) = ${c}`
   }
 
-  return { questionText, questionLatex, correctAnswer, answerFormat: 'integer' }
+  return { questionText, questionLatex, correctAnswer, answerFormat: 'integer', checkWork }
 }
 
 function makeInequality(difficulty: 'easy' | 'medium' | 'hard'): GeneratedProblem {
@@ -61,6 +65,8 @@ function makeInequality(difficulty: 'easy' | 'medium' | 'hard'): GeneratedProble
   // answer is: y [op] boundary
   const correctAnswer = `y${opText}${boundary}`
 
+  const lhs = a === 1 ? `${boundary}` : `${a}(${boundary})`
+  const lhsVal = a * boundary
   return {
     questionText,
     questionLatex,
@@ -70,6 +76,7 @@ function makeInequality(difficulty: 'easy' | 'medium' | 'hard'): GeneratedProble
       `y${opText}${boundary}`,
     ],
     answerFormat: 'inequality',
+    checkWork: `Plug y = ${boundary} back in: ${lhs} ${b >= 0 ? '+' : '-'} ${Math.abs(b)} = ${lhsVal} ${b >= 0 ? '+' : '-'} ${Math.abs(b)} = ${c}. At the boundary, both sides equal ${c}.`,
   }
 }
 
@@ -85,11 +92,12 @@ function makeTrueOrFalse(difficulty: 'easy' | 'medium' | 'hard'): GeneratedProbl
   const isTrue = testY === trueY
 
   return {
-    questionText: `Does y = ${testY} make this equation true? ${a}y + ${b} = ${c}  (Answer: yes or no)`,
-    questionLatex: `\\text{Does } y = ${testY} \\text{ make } ${formatTerm(a, 'y', true)} ${formatConstant(b, false)} = ${c} \\text{ true? (yes/no)}`,
+    questionText: `Does y = ${testY} make this equation true? ${a}y + ${b} = ${c}`,
+    questionLatex: `\\text{Does } y = ${testY} \\text{ make } ${formatTerm(a, 'y', true)} ${formatConstant(b, false)} = ${c} \\text{ true?}`,
     correctAnswer: isTrue ? 'yes' : 'no',
     acceptableAnswers: isTrue ? ['yes', 'true', 'y'] : ['no', 'false', 'n'],
     answerFormat: 'multiple-choice',
+    hint: 'Answer: yes or no',
   }
 }
 

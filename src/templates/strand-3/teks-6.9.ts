@@ -16,6 +16,7 @@ function makeOneStepAdd(difficulty: 'easy' | 'medium' | 'hard'): GeneratedProble
     questionLatex: `\\text{Solve for } y: \\quad y ${formatConstant(b, false)} = ${c}`,
     correctAnswer: String(y),
     answerFormat: 'integer',
+    checkWork: `Plug y = ${y} back in: ${y} ${b >= 0 ? '+' : '-'} ${Math.abs(b)} = ${c}`,
   }
 }
 
@@ -32,6 +33,7 @@ function makeOneStepMul(difficulty: 'easy' | 'medium' | 'hard'): GeneratedProble
     questionLatex: `\\text{Solve for } y: \\quad ${a}y = ${c}`,
     correctAnswer: String(y),
     answerFormat: 'integer',
+    checkWork: `Plug y = ${y} back in: ${a}(${y}) = ${c}`,
   }
 }
 
@@ -44,11 +46,13 @@ function makeTwoStep(difficulty: 'easy' | 'medium' | 'hard'): GeneratedProblem {
   const y = randIntExcluding(aMin, aMax, [0])
   const b = randIntExcluding(-10, 10, [0])
   const c = a * y + b
+  const ay = a * y
   return {
     questionText: `Solve for y: ${a}y + ${b} = ${c}`,
     questionLatex: `\\text{Solve for } y: \\quad ${formatTerm(a, 'y', true)} ${formatConstant(b, false)} = ${c}`,
     correctAnswer: String(y),
     answerFormat: 'integer',
+    checkWork: `Plug y = ${y} back in: ${a}(${y}) ${b >= 0 ? '+' : '-'} ${Math.abs(b)} = ${ay} ${b >= 0 ? '+' : '-'} ${Math.abs(b)} = ${c}`,
   }
 }
 
@@ -66,11 +70,14 @@ function makeVarsBothSides(difficulty: 'easy' | 'medium' | 'hard'): GeneratedPro
   const c = randIntExcluding(-10, 10, [0])
   const d = (a - b) * y + c  // derived so that ay + c = by + d => y = (d-c)/(a-b)
 
+  const leftVal = a * y + c
+  const rightVal = b * y + d
   return {
     questionText: `Solve for y: ${a}y + ${c} = ${b}y + ${d}`,
     questionLatex: `\\text{Solve for } y: \\quad ${formatTerm(a, 'y', true)} ${formatConstant(c, false)} = ${formatTerm(b, 'y', true)} ${formatConstant(d, false)}`,
     correctAnswer: String(y),
     answerFormat: 'integer',
+    checkWork: `Left side: ${a}(${y}) ${c >= 0 ? '+' : '-'} ${Math.abs(c)} = ${leftVal}. Right side: ${b}(${y}) ${d >= 0 ? '+' : '-'} ${Math.abs(d)} = ${rightVal}. ${leftVal} = ${rightVal}!`,
   }
 }
 

@@ -19,6 +19,7 @@ function makeTriangleAngle(difficulty: 'easy' | 'medium' | 'hard'): GeneratedPro
     questionLatex: `\\text{A triangle has angles } ${known[0]}° \\text{ and } ${known[1]}°. \\text{ Find the third angle.}`,
     correctAnswer: String(answer),
     answerFormat: 'integer',
+    checkWork: `Check: ${known[0]}° + ${known[1]}° + ${answer}° = ${known[0] + known[1] + answer}° = 180°`,
   }
 }
 
@@ -34,11 +35,16 @@ function makeTriangleInequality(difficulty: 'easy' | 'medium' | 'hard'): Generat
     b = randInt(2, 10)
     c = a + b + randInt(1, 5)
   }
+  const checkWork = canForm
+    ? `Check all three: ${a}+${b}=${a + b} > ${c}, ${a}+${c}=${a + c} > ${b}, ${b}+${c}=${b + c} > ${a}. All pass!`
+    : `Check: ${a}+${b}=${a + b}, but ${c} is not less than ${a + b}. Fails!`
   return {
-    questionText: `Can sides of length ${a}, ${b}, and ${c} form a triangle? (yes or no)`,
+    questionText: `Can sides of length ${a}, ${b}, and ${c} form a triangle?`,
+    hint: 'yes or no',
     correctAnswer: canForm ? 'yes' : 'no',
     acceptableAnswers: canForm ? ['yes', 'y', 'true'] : ['no', 'n', 'false'],
     answerFormat: 'multiple-choice',
+    checkWork,
   }
 }
 
@@ -51,6 +57,7 @@ function makeAreaParallelogram(difficulty: 'easy' | 'medium' | 'hard'): Generate
     questionLatex: `\\text{Parallelogram: base} = ${base}, \\text{ height} = ${height}. \\text{ Area} = ?`,
     correctAnswer: String(area),
     answerFormat: 'integer',
+    checkWork: `A = base × height = ${base} × ${height} = ${area}`,
   }
 }
 
@@ -65,6 +72,7 @@ function makeAreaTriangle(difficulty: 'easy' | 'medium' | 'hard'): GeneratedProb
     questionLatex: `\\text{Triangle: base} = ${base}, \\text{ height} = ${height}. \\text{ Area} = ?`,
     correctAnswer: String(area),
     answerFormat: 'integer',
+    checkWork: `A = ½ × base × height = ½ × ${base} × ${height} = ${area}`,
   }
 }
 
@@ -80,6 +88,7 @@ function makeAreaTrapezoid(difficulty: 'easy' | 'medium' | 'hard'): GeneratedPro
     questionLatex: `\\text{Trapezoid: } b_1=${b1}, b_2=${b2}, h=${h}. \\text{ Area} = ?`,
     correctAnswer: String(area),
     answerFormat: 'integer',
+    checkWork: `A = ½(b₁ + b₂) × h = ½(${b1} + ${b2}) × ${h} = ½ × ${b1 + b2} × ${h} = ${area}`,
   }
 }
 
@@ -93,6 +102,7 @@ function makeVolume(difficulty: 'easy' | 'medium' | 'hard'): GeneratedProblem {
     questionLatex: `\\text{Rectangular prism: } l=${l}, w=${w}, h=${h}. \\text{ Volume} = ?`,
     correctAnswer: String(vol),
     answerFormat: 'integer',
+    checkWork: `V = l × w × h = ${l} × ${w} × ${h} = ${vol}`,
   }
 }
 

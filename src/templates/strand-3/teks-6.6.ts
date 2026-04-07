@@ -15,11 +15,14 @@ function makeIdentifyQuantities(difficulty: 'easy' | 'medium' | 'hard'): Generat
   ]
   const s = scenarios[Math.floor(Math.random() * scenarios.length)]
 
+  const indWord = s.ind.split(' ').slice(-1)[0]
+  const depWord = s.dep.split(' ').slice(-1)[0]
   return {
-    questionText: `In the relationship between "${s.ind}" and "${s.dep}", which is the independent variable? (Type: ${s.ind.split(' ').slice(-1)[0]} or ${s.dep.split(' ').slice(-1)[0]})`,
-    correctAnswer: s.ind.split(' ').slice(-1)[0],
-    acceptableAnswers: [s.ind, s.ind.split(' ').slice(-1)[0], s.ind.toLowerCase()],
+    questionText: `In the relationship between "${s.ind}" and "${s.dep}", which is the independent variable?`,
+    correctAnswer: indWord,
+    acceptableAnswers: [s.ind, indWord, s.ind.toLowerCase()],
     answerFormat: 'multiple-choice',
+    hint: `Type: ${indWord} or ${depWord}`,
   }
 }
 
@@ -31,10 +34,12 @@ function makeWriteEquation(difficulty: 'easy' | 'medium' | 'hard'): GeneratedPro
     const ys = xs.map((x) => k * x)
     const table = xs.map((x, i) => `x=${x}, y=${ys[i]}`).join(' | ')
     return {
-      questionText: `Write the equation for this table: ${table}. (Use the form y=kx)`,
+      questionText: `Write the equation for this table: ${table}.`,
       correctAnswer: `y=${k}x`,
       acceptableAnswers: [`y=${k}x`, `y = ${k}x`, `y=${k}*x`],
       answerFormat: 'expression',
+      hint: 'Use the form y=kx',
+      checkWork: `Plug in x=2: y = ${k}(2) = ${k * 2}. Table confirms y=${ys[1]}`,
     }
   } else {
     const b = randIntExcluding(1, difficulty === 'easy' ? 10 : 20, [0])
@@ -42,10 +47,12 @@ function makeWriteEquation(difficulty: 'easy' | 'medium' | 'hard'): GeneratedPro
     const ys = xs.map((x) => x + b)
     const table = xs.map((x, i) => `x=${x}, y=${ys[i]}`).join(' | ')
     return {
-      questionText: `Write the equation for this table: ${table}. (Use the form y=x+b)`,
+      questionText: `Write the equation for this table: ${table}.`,
       correctAnswer: `y=x+${b}`,
       acceptableAnswers: [`y=x+${b}`, `y = x + ${b}`, `y=x+${b}`],
       answerFormat: 'expression',
+      hint: 'Use the form y=x+b',
+      checkWork: `Plug in x=2: y = 2 + ${b} = ${2 + b}. Table confirms y=${ys[1]}`,
     }
   }
 }
@@ -64,6 +71,7 @@ function makeRepresentSituation(difficulty: 'easy' | 'medium' | 'hard'): Generat
       correctAnswer: `y=${k}x`,
       acceptableAnswers: [`y=${k}x`, `y = ${k}x`, `y=${k}*x`],
       answerFormat: 'expression',
+      checkWork: `Plug in x=2: y = ${k}(2) = ${k * 2}`,
     }
   } else {
     const b = randInt(2, difficulty === 'easy' ? 10 : 20)
@@ -76,6 +84,7 @@ function makeRepresentSituation(difficulty: 'easy' | 'medium' | 'hard'): Generat
       correctAnswer: `y=x+${b}`,
       acceptableAnswers: [`y=x+${b}`, `y = x + ${b}`],
       answerFormat: 'expression',
+      checkWork: `After x=1 day: y = 1 + ${b} = ${1 + b}`,
     }
   }
 }

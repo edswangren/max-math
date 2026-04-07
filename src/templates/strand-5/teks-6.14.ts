@@ -4,13 +4,13 @@ import { randInt } from '../../utils/math'
 // 6.14A-H — Personal Financial Literacy (mostly conceptual, multiple-choice)
 
 function makeCheckingVsDebit(_difficulty: 'easy' | 'medium' | 'hard'): GeneratedProblem {
-  const questions = [
+  const questions: { q: string; a: string; alts: string[]; hint?: string }[] = [
     { q: 'Which typically has a monthly maintenance fee — a checking account or a debit card?', a: 'checking account', alts: ['checking', 'checking account'] },
     { q: 'Which allows you to spend money directly from your bank account — a debit card or a credit card?', a: 'debit card', alts: ['debit', 'debit card'] },
-    { q: 'A debit card withdraws money from your ___. (Type: bank account or credit line)', a: 'bank account', alts: ['bank account', 'bank', 'account'] },
+    { q: 'A debit card withdraws money from your ___.', a: 'bank account', alts: ['bank account', 'bank', 'account'], hint: 'Type: bank account or credit line' },
   ]
   const q = questions[Math.floor(Math.random() * questions.length)]
-  return { questionText: q.q, correctAnswer: q.a, acceptableAnswers: q.alts, answerFormat: 'multiple-choice' }
+  return { questionText: q.q, correctAnswer: q.a, acceptableAnswers: q.alts, answerFormat: 'multiple-choice' as const, ...(q.hint && { hint: q.hint }) }
 }
 
 function makeDebitVsCredit(_difficulty: 'easy' | 'medium' | 'hard'): GeneratedProblem {
@@ -28,9 +28,11 @@ function makeDebitVsCredit(_difficulty: 'easy' | 'medium' | 'hard'): GeneratedPr
 }
 
 function makeCheckRegister(difficulty: 'easy' | 'medium' | 'hard'): GeneratedProblem {
-  let balance = randInt(100, 500)
+  const startBalance = randInt(100, 500)
+  let balance = startBalance
   const steps = difficulty === 'easy' ? 2 : difficulty === 'medium' ? 3 : 4
   const transactions: string[] = []
+  const traceEntries: string[] = []
   for (let i = 0; i < steps; i++) {
     const isDeposit = Math.random() > 0.5
     const amount = randInt(10, 100)
@@ -41,36 +43,35 @@ function makeCheckRegister(difficulty: 'easy' | 'medium' | 'hard'): GeneratedPro
       balance -= amount
       transactions.push(`withdrawal $${amount}`)
     }
+    traceEntries.push(`${isDeposit ? '+' : '-'}$${amount} = $${balance}`)
   }
   return {
-    questionText: `Starting balance: $${balance - transactions.reduce((sum, t) => {
-      const amt = parseInt(t.match(/\d+/)![0])
-      return t.startsWith('d') ? sum + amt : sum - amt
-    }, 0)}. Transactions: ${transactions.join(', ')}. What is the final balance?`,
+    questionText: `Starting balance: $${startBalance}. Transactions: ${transactions.join(', ')}. What is the final balance?`,
     correctAnswer: String(balance),
     answerFormat: 'integer',
+    checkWork: `$${startBalance} → ${traceEntries.join(' → ')}`,
   }
 }
 
 function makeCreditHistory(_difficulty: 'easy' | 'medium' | 'hard'): GeneratedProblem {
-  const questions = [
+  const questions: { q: string; a: string; alts: string[]; hint?: string }[] = [
     { q: 'Does paying bills on time help or hurt your credit history?', a: 'help', alts: ['help', 'helps', 'good'] },
     { q: 'Does missing credit card payments help or hurt your credit history?', a: 'hurt', alts: ['hurt', 'hurts', 'bad'] },
-    { q: 'Is a positive credit history important for getting a loan? (yes or no)', a: 'yes', alts: ['yes', 'y'] },
-    { q: 'How many years can negative information stay on a credit report? (answer: 7)', a: '7', alts: ['7', 'seven'] },
+    { q: 'Is a positive credit history important for getting a loan?', a: 'yes', alts: ['yes', 'y'], hint: 'yes or no' },
+    { q: 'How many years can negative information stay on a credit report?', a: '7', alts: ['7', 'seven'], hint: 'answer: 7' },
   ]
   const q = questions[Math.floor(Math.random() * questions.length)]
-  return { questionText: q.q, correctAnswer: q.a, acceptableAnswers: q.alts, answerFormat: 'multiple-choice' }
+  return { questionText: q.q, correctAnswer: q.a, acceptableAnswers: q.alts, answerFormat: 'multiple-choice' as const, ...(q.hint && { hint: q.hint }) }
 }
 
 function makeFinancialResponsibility(_difficulty: 'easy' | 'medium' | 'hard'): GeneratedProblem {
   const scenarios = [
-    { q: 'Spending more than you earn each month is an example of financial ___ (responsibility or irresponsibility)', a: 'irresponsibility', alts: ['irresponsibility', 'irresponsible'] },
-    { q: 'Creating and following a budget is an example of financial ___ (responsibility or irresponsibility)', a: 'responsibility', alts: ['responsibility', 'responsible'] },
-    { q: 'Saving part of each paycheck is financially ___ (responsible or irresponsible)', a: 'responsible', alts: ['responsible', 'responsibility'] },
+    { q: 'Spending more than you earn each month is an example of financial ___', a: 'irresponsibility', alts: ['irresponsibility', 'irresponsible'], hint: 'responsibility or irresponsibility' },
+    { q: 'Creating and following a budget is an example of financial ___', a: 'responsibility', alts: ['responsibility', 'responsible'], hint: 'responsibility or irresponsibility' },
+    { q: 'Saving part of each paycheck is financially ___', a: 'responsible', alts: ['responsible', 'responsibility'], hint: 'responsible or irresponsible' },
   ]
   const s = scenarios[Math.floor(Math.random() * scenarios.length)]
-  return { questionText: s.q, correctAnswer: s.a, acceptableAnswers: s.alts, answerFormat: 'multiple-choice' }
+  return { questionText: s.q, correctAnswer: s.a, acceptableAnswers: s.alts, answerFormat: 'multiple-choice', hint: s.hint }
 }
 
 function makeBudgetProblem(difficulty: 'easy' | 'medium' | 'hard'): GeneratedProblem {
@@ -82,6 +83,7 @@ function makeBudgetProblem(difficulty: 'easy' | 'medium' | 'hard'): GeneratedPro
     correctAnswer: String(total),
     acceptableAnswers: [String(total), `$${total.toLocaleString()}`],
     answerFormat: 'integer',
+    checkWork: `$${tuitionPerYear.toLocaleString()} per year × ${years} years = $${total.toLocaleString()}`,
   }
 }
 

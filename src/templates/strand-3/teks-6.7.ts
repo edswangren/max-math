@@ -14,6 +14,7 @@ function makeOrderOfOps(difficulty: 'easy' | 'medium' | 'hard'): GeneratedProble
       questionText: `Evaluate: ${a} × ${b} + ${c}`,
       questionLatex: `\\text{Evaluate: } ${a} \\times ${b} + ${c}`,
       correctAnswer: String(answer), answerFormat: 'integer',
+      checkWork: `Step by step: ${a} × ${b} = ${a * b}, then ${a * b} + ${c} = ${answer}`,
     }
   } else if (difficulty === 'medium') {
     const a = randInt(2, 6), b = randInt(1, 8), c = randInt(1, 5), d = randInt(1, 9)
@@ -22,6 +23,7 @@ function makeOrderOfOps(difficulty: 'easy' | 'medium' | 'hard'): GeneratedProble
       questionText: `Evaluate: ${a}(${b} + ${c}) - ${d}`,
       questionLatex: `\\text{Evaluate: } ${a}(${b} + ${c}) - ${d}`,
       correctAnswer: String(answer), answerFormat: 'integer',
+      checkWork: `Step by step: ${b} + ${c} = ${b + c}, then ${a} × ${b + c} = ${a * (b + c)}, then ${a * (b + c)} - ${d} = ${answer}`,
     }
   } else {
     const base = randInt(2, 5), exp = randInt(2, 3)
@@ -32,6 +34,7 @@ function makeOrderOfOps(difficulty: 'easy' | 'medium' | 'hard'): GeneratedProble
       questionText: `Evaluate: ${base}^${exp} + ${b} × ${c}`,
       questionLatex: `\\text{Evaluate: } ${base}^{${exp}} + ${b} \\times ${c}`,
       correctAnswer: String(answer), answerFormat: 'integer',
+      checkWork: `Step by step: ${base}^${exp} = ${power}, then ${b} × ${c} = ${b * c}, then ${power} + ${b * c} = ${answer}`,
     }
   }
 }
@@ -57,10 +60,12 @@ function makePrimeFactorization(difficulty: 'easy' | 'medium' | 'hard'): Generat
   const pool = composites[difficulty]
   const choice = pool[Math.floor(Math.random() * pool.length)]
   return {
-    questionText: `Find the prime factorization of ${choice.n}. (Write factors separated by x, like 2x2x3)`,
+    questionText: `Find the prime factorization of ${choice.n}.`,
     correctAnswer: choice.factors,
     acceptableAnswers: [choice.factors, choice.factors.replace(/x/g, '*'), choice.factors.replace(/x/g, '×')],
     answerFormat: 'expression',
+    hint: 'Write factors separated by x, like 2x2x3',
+    checkWork: `Multiply them back: ${choice.factors.replace(/x/g, ' × ')} = ${choice.n}`,
   }
 }
 
@@ -75,10 +80,11 @@ function makeExpressionsVsEquations(_difficulty: 'easy' | 'medium' | 'hard'): Ge
     text = `${a}x + ${b}`
   }
   return {
-    questionText: `Is "${text}" an expression or an equation? (Type: expression or equation)`,
+    questionText: `Is "${text}" an expression or an equation?`,
     correctAnswer: isEquation ? 'equation' : 'expression',
     acceptableAnswers: isEquation ? ['equation', 'eq'] : ['expression', 'expr'],
     answerFormat: 'multiple-choice',
+    hint: 'Type: expression or equation',
   }
 }
 
@@ -94,19 +100,22 @@ function makeEquivalentExpressions(difficulty: 'easy' | 'medium' | 'hard'): Gene
     const right = equivalent ? `${a * 1}x + ${a * b}` : `${a}x + ${b}`
     const isEq = equivalent
     return {
-      questionText: `Are these equivalent? ${a}(x + ${b}) and ${right}. (yes or no)`,
+      questionText: `Are these equivalent? ${a}(x + ${b}) and ${right}.`,
       correctAnswer: isEq ? 'yes' : 'no',
       acceptableAnswers: isEq ? ['yes', 'y', 'true'] : ['no', 'n', 'false'],
       answerFormat: 'multiple-choice',
+      hint: 'yes or no',
     }
   } else {
     // distribute and simplify: a(x + b) + c
     const expanded = a * b + c
+    const check = a * (1 + b) + c
     return {
       questionText: `Simplify: ${a}(x + ${b}) + ${c}`,
       correctAnswer: `${a}x+${expanded}`,
       acceptableAnswers: [`${a}x+${expanded}`, `${a}x + ${expanded}`],
       answerFormat: 'expression',
+      checkWork: `Plug in x=1: ${a}(1 + ${b}) + ${c} = ${check}. And ${a}(1) + ${expanded} = ${a + expanded}. Same!`,
     }
   }
 }
@@ -129,9 +138,12 @@ function makeDistributiveProperty(difficulty: 'easy' | 'medium' | 'hard'): Gener
       correctAnswer: `${totalX}x+${totalConst}`,
       acceptableAnswers: [`${totalX}x+${totalConst}`, `${totalX}x + ${totalConst}`],
       answerFormat: 'expression',
+      checkWork: `Plug in x=1: ${a}(1+${b}) + ${c}(1+${d}) = ${a * (1 + b)} + ${c * (1 + d)} = ${a * (1 + b) + c * (1 + d)}. And ${totalX}(1)+${totalConst} = ${totalX + totalConst}`,
     }
   }
 
+  const innerVal = sign === '+' ? 1 + b : 1 - b
+  const origAt1 = a * innerVal + c
   return {
     questionText: `Use the distributive property to expand: ${a}(${inner}) + ${c}`,
     correctAnswer: result_const >= 0 ? `${a}x+${result_const}` : `${a}x${result_const}`,
@@ -140,6 +152,7 @@ function makeDistributiveProperty(difficulty: 'easy' | 'medium' | 'hard'): Gener
       `${a}x${result_const}`, `${a}x ${result_const}`,
     ],
     answerFormat: 'expression',
+    checkWork: `Plug in x=1: ${a}(${sign === '+' ? `1+${b}` : `1-${b}`}) + ${c} = ${origAt1}. And ${a}(1) + ${result_const} = ${a + result_const}`,
   }
 }
 

@@ -14,10 +14,11 @@ function makeCoordinatePlane(difficulty: 'easy' | 'medium' | 'hard'): GeneratedP
     return makeCoordinatePlane(difficulty) // retry if on axis
   }
   return {
-    questionText: `In which quadrant is the point (${x}, ${y})? (Type I, II, III, or IV)`,
+    questionText: `In which quadrant is the point (${x}, ${y})?`,
     correctAnswer: quadrant,
     acceptableAnswers: [quadrant, quadrant.toLowerCase(), String(['I','II','III','IV'].indexOf(quadrant) + 1)],
     answerFormat: 'multiple-choice',
+    hint: 'Type I, II, III, or IV',
   }
 }
 
@@ -32,16 +33,20 @@ function makeMeanMedian(difficulty: 'easy' | 'medium' | 'hard'): GeneratedProble
     const mean = sum / count
     const isInt = Number.isInteger(mean)
     return {
-      questionText: `Find the mean of: ${nums.join(', ')}${!isInt ? ' (round to 1 decimal)' : ''}`,
+      questionText: `Find the mean of: ${nums.join(', ')}`,
       correctAnswer: isInt ? String(mean) : mean.toFixed(1),
       answerFormat: isInt ? 'integer' : 'decimal',
+      ...(!isInt && { hint: 'Round to 1 decimal' }),
+      checkWork: `Sum: ${nums.join(' + ')} = ${sum}. Count: ${count}. Mean: ${sum} ÷ ${count} = ${isInt ? String(mean) : mean.toFixed(1)}`,
     }
   } else {
     const median = sorted[Math.floor(count / 2)]
+    const midPos = Math.floor(count / 2) + 1
     return {
       questionText: `Find the median of: ${nums.join(', ')}`,
       correctAnswer: String(median),
       answerFormat: 'integer',
+      checkWork: `Sorted: ${sorted.join(', ')}. Middle value (#${midPos}): ${median}`,
     }
   }
 }
@@ -49,11 +54,14 @@ function makeMeanMedian(difficulty: 'easy' | 'medium' | 'hard'): GeneratedProble
 function makeRange(difficulty: 'easy' | 'medium' | 'hard'): GeneratedProblem {
   const count = difficulty === 'easy' ? 5 : 7
   const nums = Array.from({ length: count }, () => randInt(1, difficulty === 'easy' ? 30 : 100))
-  const range = Math.max(...nums) - Math.min(...nums)
+  const max = Math.max(...nums)
+  const min = Math.min(...nums)
+  const range = max - min
   return {
     questionText: `Find the range of: ${nums.join(', ')}`,
     correctAnswer: String(range),
     answerFormat: 'integer',
+    checkWork: `Max: ${max}, Min: ${min}. Range: ${max} - ${min} = ${range}`,
   }
 }
 
@@ -67,6 +75,7 @@ function makeIQR(difficulty: 'easy' | 'medium' | 'hard'): GeneratedProblem {
     questionText: `Find the IQR (interquartile range) of: ${sorted.join(', ')}`,
     correctAnswer: String(iqr),
     answerFormat: 'integer',
+    checkWork: `Lower half median (Q1): ${q1}. Upper half median (Q3): ${q3}. IQR: ${q3} - ${q1} = ${iqr}`,
   }
 }
 
@@ -81,10 +90,11 @@ function makeVariability(_difficulty: 'easy' | 'medium' | 'hard'): GeneratedProb
   ]
   const s = scenarios[Math.floor(Math.random() * scenarios.length)]
   return {
-    questionText: `Does this question yield data with variability? "${s.q}" (yes or no)`,
+    questionText: `Does this question yield data with variability? "${s.q}"`,
     correctAnswer: s.hasVar ? 'yes' : 'no',
     acceptableAnswers: s.hasVar ? ['yes', 'y'] : ['no', 'n'],
     answerFormat: 'multiple-choice',
+    hint: 'yes or no',
   }
 }
 
@@ -96,10 +106,12 @@ function makeCategoricalData(_difficulty: 'easy' | 'medium' | 'hard'): Generated
   const pct = Math.round((counts[askIdx] / total) * 100)
   const table = categories.map((c, i) => `${c}: ${counts[i]}`).join(', ')
   return {
-    questionText: `Given the data: ${table}. What percent chose ${categories[askIdx]}? (Round to nearest whole number)`,
+    questionText: `Given the data: ${table}. What percent chose ${categories[askIdx]}?`,
     correctAnswer: String(pct),
     acceptableAnswers: [String(pct), `${pct}%`],
     answerFormat: 'integer',
+    hint: 'Round to nearest whole number',
+    checkWork: `Check: ${counts[askIdx]} ÷ ${total} = ${(counts[askIdx] / total).toFixed(3)}, × 100 = ${pct}%`,
   }
 }
 

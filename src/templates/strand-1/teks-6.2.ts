@@ -18,10 +18,11 @@ function makeClassifyNumber(_difficulty: 'easy' | 'medium' | 'hard'): GeneratedP
   ]
   const choice = types[Math.floor(Math.random() * types.length)]
   return {
-    questionText: `Classify ${choice.val}: Is it a whole number, integer, or rational number? (List all that apply, separated by commas)`,
+    questionText: `Classify ${choice.val}: Is it a whole number, integer, or rational number?`,
     correctAnswer: choice.sets,
     acceptableAnswers: [choice.sets, choice.sets.replace(/, /g, ',')],
     answerFormat: 'multiple-choice',
+    hint: 'List all that apply, separated by commas',
   }
 }
 
@@ -35,6 +36,7 @@ function makeOppositeAbsValue(difficulty: 'easy' | 'medium' | 'hard'): Generated
       questionText: `What is the opposite of ${num}?`,
       correctAnswer: String(-num),
       answerFormat: 'integer',
+      checkWork: `The opposite of ${num} is ${-num}. Flip the sign!`,
     }
   } else {
     return {
@@ -42,6 +44,7 @@ function makeOppositeAbsValue(difficulty: 'easy' | 'medium' | 'hard'): Generated
       questionLatex: `\\text{What is } |${num}|?`,
       correctAnswer: String(Math.abs(num)),
       answerFormat: 'integer',
+      checkWork: `|${num}| = ${Math.abs(num)} — absolute value is always the distance from 0`,
     }
   }
 }
@@ -53,9 +56,10 @@ function makeCompareOrder(difficulty: 'easy' | 'medium' | 'hard'): GeneratedProb
   while (b === a) b = randInt(-range, range)
   const answer = a < b ? '<' : '>'
   return {
-    questionText: `Compare: ${a} ___ ${b}. (Type < or >)`,
+    questionText: `Compare: ${a} ___ ${b}.`,
     correctAnswer: answer,
     answerFormat: 'multiple-choice',
+    hint: 'Type < or >',
   }
 }
 
@@ -73,6 +77,7 @@ function makeOrderSet(difficulty: 'easy' | 'medium' | 'hard'): GeneratedProblem 
     correctAnswer: sorted.join(','),
     acceptableAnswers: [sorted.join(','), sorted.join(', ')],
     answerFormat: 'expression',
+    checkWork: `Check: ${sorted.join(' < ')}`,
   }
 }
 
@@ -86,12 +91,14 @@ function makeFractionAsDivision(_difficulty: 'easy' | 'medium' | 'hard'): Genera
       correctAnswer: `${a}/${b}`,
       acceptableAnswers: [`${a}/${b}`],
       answerFormat: 'fraction',
+      checkWork: `${a} ÷ ${b} can be written as ${a}/${b}`,
     }
   } else {
     return {
       questionText: `Write ${a}/${b} as a division expression. What is the dividend?`,
       correctAnswer: String(a),
       answerFormat: 'integer',
+      checkWork: `In ${a}/${b}, the top number (${a}) is the dividend`,
     }
   }
 }

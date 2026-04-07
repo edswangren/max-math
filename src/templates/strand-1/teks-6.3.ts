@@ -15,6 +15,7 @@ function makeReciprocal(_difficulty: 'easy' | 'medium' | 'hard'): GeneratedProbl
     correctAnswer: `${den}/${num}`,
     acceptableAnswers: [`${den}/${num}`],
     answerFormat: 'fraction',
+    checkWork: `Check: (${num}/${den}) × (${den}/${num}) = ${num * den}/${den * num} = 1`,
   }
 }
 
@@ -29,10 +30,11 @@ function makeMultiplyByFraction(_difficulty: 'easy' | 'medium' | 'hard'): Genera
     num = randInt(1, den - 1)
   }
   return {
-    questionText: `When you multiply a positive number by ${num}/${den}, does the result increase or decrease? (Type: increase or decrease)`,
+    questionText: `When you multiply a positive number by ${num}/${den}, does the result increase or decrease?`,
     correctAnswer: isGreaterThanOne ? 'increase' : 'decrease',
     acceptableAnswers: isGreaterThanOne ? ['increase', 'increases', 'bigger', 'larger'] : ['decrease', 'decreases', 'smaller'],
     answerFormat: 'multiple-choice',
+    hint: 'Type: increase or decrease',
   }
 }
 
@@ -52,11 +54,19 @@ function makeIntegerArithmetic(difficulty: 'easy' | 'medium' | 'hard'): Generate
     case '*': answer = a * b; symbol = '×'; latex = '\\times'; break
   }
 
+  let checkWork: string
+  switch (op) {
+    case '+': checkWork = `Reverse: ${answer} - ${b < 0 ? `(${b})` : b} = ${a}`; break
+    case '-': checkWork = `Reverse: ${answer} + ${b < 0 ? `(${b})` : b} = ${a}`; break
+    case '*': checkWork = `Reverse: ${answer} ÷ ${b < 0 ? `(${b})` : b} = ${a}`; break
+  }
+
   return {
     questionText: `Calculate: ${a} ${symbol} ${b}`,
     questionLatex: `\\text{Calculate: } ${a} ${latex} ${b < 0 ? `(${b})` : b}`,
     correctAnswer: String(answer),
     answerFormat: 'integer',
+    checkWork,
   }
 }
 
@@ -69,6 +79,7 @@ function makeIntegerDivision(difficulty: 'easy' | 'medium' | 'hard'): GeneratedP
     questionLatex: `\\text{Calculate: } ${dividend} \\div ${divisor}`,
     correctAnswer: String(answer),
     answerFormat: 'integer',
+    checkWork: `Reverse: ${answer} × ${divisor} = ${dividend}`,
   }
 }
 
@@ -95,11 +106,16 @@ function makeRationalMultDiv(difficulty: 'easy' | 'medium' | 'hard'): GeneratedP
 
   const op = isMultiply ? '×' : '÷'
   const answer = rDen === 1 ? String(rNum) : `${rNum}/${rDen}`
+  const checkWork = isMultiply
+    ? `Check: (${a_num}×${b_num})/(${a_den}×${b_den}) = ${a_num * b_num}/${a_den * b_den}, simplified = ${answer}`
+    : `Check: (${a_num}×${b_den})/(${a_den}×${b_num}) = ${a_num * b_den}/${a_den * b_num}, simplified = ${answer}`
   return {
-    questionText: `Calculate: ${a_num}/${a_den} ${op} ${b_num}/${b_den} (simplify your answer)`,
+    questionText: `Calculate: ${a_num}/${a_den} ${op} ${b_num}/${b_den}`,
     correctAnswer: answer,
     acceptableAnswers: rDen === 1 ? [String(rNum)] : [answer, `${rNum}/${rDen}`],
     answerFormat: rDen === 1 ? 'integer' : 'fraction',
+    hint: 'Simplify your answer',
+    checkWork,
   }
 }
 

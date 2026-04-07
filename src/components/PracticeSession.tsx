@@ -209,9 +209,10 @@ export default function PracticeSession() {
         questionLatex={current.questionLatex}
         problemNumber={currentIndex + 1}
         totalProblems={TOTAL_PROBLEMS}
+        hint={current.hint}
       />
 
-      {!feedback && <AnswerInput onSubmit={handleSubmit} />}
+      {!feedback && <AnswerInput onSubmit={handleSubmit} answerFormat={current.answerFormat} />}
 
       {feedback && (
         <FeedbackBanner
@@ -219,6 +220,8 @@ export default function PracticeSession() {
           correctAnswer={current.correctAnswer}
           userAnswer={feedback.userAnswer}
           onNext={handleNext}
+          checkWork={current.checkWork}
+          checkWorkLatex={current.checkWorkLatex}
         />
       )}
     </div>

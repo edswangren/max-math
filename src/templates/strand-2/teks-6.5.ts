@@ -13,6 +13,7 @@ function makeProportional(difficulty: 'easy' | 'medium' | 'hard'): GeneratedProb
     questionText: `If ${a} items cost $${b * a}, how much do ${a * scale} items cost?`,
     correctAnswer: String(b * a * scale),
     answerFormat: 'integer',
+    checkWork: `Unit price: $${b * a} ÷ ${a} = $${b} per item. Then $${b} × ${a * scale} = $${b * a * scale}`,
   }
 }
 
@@ -27,6 +28,7 @@ function makePercentProblem(difficulty: 'easy' | 'medium' | 'hard'): GeneratedPr
       questionText: `What is ${pct}% of ${whole}?`,
       correctAnswer: String(part),
       answerFormat: Number.isInteger(part) ? 'integer' : 'decimal',
+      checkWork: `Check: ${pct}/100 × ${whole} = ${part}`,
     }
   } else if (type === 1) {
     // Find the whole given part and percent
@@ -37,6 +39,7 @@ function makePercentProblem(difficulty: 'easy' | 'medium' | 'hard'): GeneratedPr
       questionText: `${part} is ${pct}% of what number?`,
       correctAnswer: String(whole),
       answerFormat: 'integer',
+      checkWork: `Check: ${pct}% of ${whole} = ${pct}/100 × ${whole} = ${part}`,
     }
   } else {
     // Find the percent given part and whole
@@ -49,6 +52,7 @@ function makePercentProblem(difficulty: 'easy' | 'medium' | 'hard'): GeneratedPr
       correctAnswer: String(pct),
       acceptableAnswers: [String(pct), `${pct}%`],
       answerFormat: 'integer',
+      checkWork: `Check: ${part} ÷ ${whole} = ${part / whole}, × 100 = ${pct}%`,
     }
   }
 }
@@ -69,6 +73,7 @@ function makeEquivalentParts(_difficulty: 'easy' | 'medium' | 'hard'): Generated
     questionText: `If a whole is ${whole}, what value represents ${item.frac} of it?`,
     correctAnswer: String(part),
     answerFormat: Number.isInteger(part) ? 'integer' : 'decimal',
+    checkWork: `Check: ${item.dec} × ${whole} = ${part}`,
   }
 }
 

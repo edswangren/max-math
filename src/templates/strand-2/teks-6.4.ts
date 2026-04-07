@@ -18,10 +18,11 @@ function makeAdditiveVsMultiplicative(_difficulty: 'easy' | 'medium' | 'hard'): 
   const ys = isMult ? xs.map((x) => k * x) : xs.map((x) => x + b)
   const table = xs.map((x, i) => `(${x},${ys[i]})`).join(', ')
   return {
-    questionText: `Is this relationship additive or multiplicative? ${table} (Type: additive or multiplicative)`,
+    questionText: `Is this relationship additive or multiplicative? ${table}`,
     correctAnswer: isMult ? 'multiplicative' : 'additive',
     acceptableAnswers: isMult ? ['multiplicative', 'mult'] : ['additive', 'add'],
     answerFormat: 'multiple-choice',
+    hint: 'Type: additive or multiplicative',
   }
 }
 
@@ -33,6 +34,7 @@ function makeRatioReasoning(difficulty: 'easy' | 'medium' | 'hard'): GeneratedPr
     questionText: `If the ratio of cats to dogs is ${a}:${b}, and there are ${a * scale} cats, how many dogs are there?`,
     correctAnswer: String(b * scale),
     answerFormat: 'integer',
+    checkWork: `Check the ratio: ${a * scale}:${b * scale} simplifies to ${a}:${b}`,
   }
 }
 
@@ -44,6 +46,7 @@ function makeRateAsQuotient(difficulty: 'easy' | 'medium' | 'hard'): GeneratedPr
     questionText: `A car travels ${total} miles in ${hours} hours. What is the unit rate in miles per hour?`,
     correctAnswer: String(miles),
     answerFormat: 'integer',
+    checkWork: `Check: ${miles} miles/hr × ${hours} hrs = ${total} miles`,
   }
 }
 
@@ -58,6 +61,7 @@ function makePercentToFraction(_difficulty: 'easy' | 'medium' | 'hard'): Generat
       correctAnswer: dec,
       acceptableAnswers: [dec, (pct / 100).toFixed(2)],
       answerFormat: 'decimal',
+      checkWork: `Check: ${dec} × 100 = ${pct}%`,
     }
   } else {
     // simplified fraction
@@ -69,6 +73,7 @@ function makePercentToFraction(_difficulty: 'easy' | 'medium' | 'hard'): Generat
       questionText: `Convert ${pct}% to a simplified fraction.`,
       correctAnswer: fractions[pct],
       answerFormat: 'fraction',
+      checkWork: `Check: ${fractions[pct]} = ${pct} ÷ 100 = ${pct}%`,
     }
   }
 }
@@ -86,6 +91,7 @@ function makeBenchmarkPercent(_difficulty: 'easy' | 'medium' | 'hard'): Generate
     questionText: `What is ${b.pct}% of ${b.of}?`,
     correctAnswer: String(answer),
     answerFormat: Number.isInteger(answer) ? 'integer' : 'decimal',
+    checkWork: `Check: ${b.pct}% means ${b.pct}/100 = ${b.pct / 100}. Then ${b.pct / 100} × ${b.of} = ${answer}`,
   }
 }
 
@@ -138,6 +144,7 @@ function makeUnitConversion(difficulty: 'easy' | 'medium' | 'hard'): GeneratedPr
     questionText: `Convert ${amount} ${c.from} to ${c.to}.`,
     correctAnswer: String(answer),
     answerFormat: Number.isInteger(answer) ? 'integer' : 'decimal',
+    checkWork: `Check: ${answer} ${c.to} ÷ ${c.factor} = ${amount} ${c.from}`,
   }
 }
 

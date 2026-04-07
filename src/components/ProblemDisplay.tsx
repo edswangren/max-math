@@ -5,9 +5,10 @@ interface Props {
   questionLatex?: string
   problemNumber: number
   totalProblems: number
+  hint?: string
 }
 
-export default function ProblemDisplay({ questionText, questionLatex, problemNumber, totalProblems }: Props) {
+export default function ProblemDisplay({ questionText, questionLatex, problemNumber, totalProblems, hint }: Props) {
   const html = questionLatex
     ? katex.renderToString(questionLatex, { throwOnError: false, displayMode: true })
     : null
@@ -26,6 +27,9 @@ export default function ProblemDisplay({ questionText, questionLatex, problemNum
         />
       ) : (
         <p className="text-2xl font-mono text-white">{questionText}</p>
+      )}
+      {hint && (
+        <p className="text-sm text-smoke/70 italic mt-2">{hint}</p>
       )}
     </div>
   )

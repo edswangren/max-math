@@ -16,6 +16,9 @@ export interface GeneratedProblem {
   correctAnswer: string
   acceptableAnswers?: string[]
   answerFormat: AnswerFormat
+  hint?: string
+  checkWork?: string
+  checkWorkLatex?: string
 }
 
 export interface ProblemTemplate {
